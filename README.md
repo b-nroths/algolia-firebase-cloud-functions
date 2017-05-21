@@ -6,21 +6,21 @@ How to use:
 
 1) Install firebase cli (requires npm and node.js, more instructions here: https://firebase.google.com/docs/functions/get-started)
 
-$ npm install -g firebase-tools
+```$ npm install -g firebase-tools```
 
 2) Install node packages
 
-$ npm install
+```$ npm install```
 
 3) add your algolia credentials to your firebase function.  This will save the credentials as environment variables that can be used in the function
 
-$ firebase functions:config:set algolia.app_id="APPID" algolia.api_key="API_KEY"
+```$ firebase functions:config:set algolia.app_id="APPID" algolia.api_key="API_KEY"```
 
 4) edit index.js with the Algolia index name you would like to publish to and also the url in firebase you would like to monitor (line 7 and 9)
 
 5) Deploy the firebase functions 
 
-$ firebase deploy --only functions
+```$ firebase deploy --only functions```
 
 
 ## Backfill your data
@@ -36,4 +36,4 @@ How to use:
 - FIREBASE_URL
 - FIREBASE_ITEM_NAME
 3) run the script by doing
-$ node backfill.js
+``$ node backfill.js``
