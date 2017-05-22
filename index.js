@@ -9,6 +9,8 @@ const ALGOLIA_POSTS_INDEX_NAME = 'items';
 exports.algoliaTest = functions.database.ref('/item/{itemId}/')
     .onWrite(event => {
 
+      const index = client.initIndex(ALGOLIA_POSTS_INDEX_NAME);
+      
       // remove item for delete event in firebase
       if (!event.data.exists()) {
         console.log('item deleted', event.params.itemId);
@@ -16,12 +18,10 @@ exports.algoliaTest = functions.database.ref('/item/{itemId}/')
       }
 
       // create algolia object to insert/update
-      const index = client.initIndex(ALGOLIA_POSTS_INDEX_NAME);
-      const firebaseObject = {
-        text: event.data.val(),
-        objectID: event.params.itemId
-      };
+      var item = event.data.val();
+      item["objectID"] = item.key
+      console.log(item);
 
       console.log('item inserted or updated', event.params.itemId)
-      return index.saveObject(firebaseObject);
+      return index.saveObject(item);
     });

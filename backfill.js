@@ -9,18 +9,17 @@ var serviceAccount = require("/path/to/service/account.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "FIREBAE_URL"
+  databaseURL: "FIREBASE_URL"
 });
 
 var db = admin.database();
 var ref = db.ref("FIREBASE_ITEM_NAME");
+
 ref.orderByChild("id").on("child_added", function(snapshot) {
   const index = client.initIndex(ALGOLIA_POSTS_INDEX_NAME);
-  const firebaseObject = {
-        text: snapshot.val(),
-        objectID: snapshot.val().key
-      };
-  console.log(snapshot.val().key);
-  index.saveObject(firebaseObject); 
+  var item = snapshot.val();
+  item["objectID"] = snapshot.val().key
+  console.log(item);
+  index.saveObject(item); 
 
 });
